@@ -24,6 +24,13 @@ function Cont  ()  {
       const listItems = items.map((item)=> item.id===id ? {...item, checked:!item.checked} : item)
       setItems(listItems)
     }
+
+    const handleDelete = (id) =>{
+    const listItem = items.filter((item)=>item.id!==id)
+    setItems(listItem)
+    localStorage.setItem("Todo_list", JSON.stringify(listItem))
+
+    }
   return (
 <>
 <main>
@@ -37,10 +44,13 @@ function Cont  ()  {
          onChange={() =>handleCheck(item.id)}
           checked= {item.checked}>
         </input>
-        <label>{item.item}</label>
+        <label 
+        style ={(item.checked) ? {textDecoration:'line-through'}: null }
+        onDoubleClick={() => handleCheck(item.id)}>{item.item}</label>
        <FaTrashAlt 
        role ="button"
-       tabIndex="0"/>
+       tabIndex="0"
+       onClick={()=>handleDelete(item.id)}/>
       </li>
       ))}
      </ul>
