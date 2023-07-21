@@ -15,7 +15,7 @@ function Cont() {
   return (
 
     <main>
-      <p>Let's {handleNameChange()} Money!</p>
+      <p onDoubleClick={() =>handleClick('preeti')}>Let's {handleNameChange()} Money!</p>
       <button onClick={(e) =>handleClick1(e)}>Subscribe</button>
     </main>
   )
