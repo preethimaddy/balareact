@@ -6,6 +6,9 @@ function Cont() {
         const int = Math.floor(Math.random()*3)
         return names[int]
        }
+       const handleClick1 = (e) => {
+        console.log(e.target.innerText)
+       }
        const handleClick = (name) => {
         console.log(`Thanks for the support ${name}`)
        }
@@ -13,7 +16,7 @@ function Cont() {
 
     <main>
       <p>Let's {handleNameChange()} Money!</p>
-      <button onClick={(e) =>handleClick('preethi')}>Subscribe</button>
+      <button onClick={(e) =>handleClick1(e)}>Subscribe</button>
     </main>
   )
 }
