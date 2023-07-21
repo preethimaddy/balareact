@@ -1,28 +1,52 @@
 import React from 'react'
 import { useState } from 'react'
-function Cont() {
-  const [name, setName] = useState('earn')
-    function handleNameChange(){
-        const names =["earn", "Develope", "Give","Grow"]
-        const int = Math.floor(Math.random()*3)
-        setName(names[int]) 
-       }
-    const [count, setCount] = useState(99);
-    function increment(){
-      setCount(prevCount => prevCount + 1);
-    }
-    function decrement () {
-      setCount(prevCount => prevCount - 1);
+import { FaTrashAlt} from "react-icons/fa"
+function Cont  ()  {
+  const [items, setItems] = useState(
+    [
+      {
+        id:1,
+        checked:false,
+        item:"Practice Coding"
+      },
+      {
+        id:2,
+        checked:false,
+        item:"Play Cricket"
+      },
+      {
+        id:3,
+        checked:false,
+        item:"Read AI"
+      }
+    ])
+    const handleCheck = (id) =>{
+      const listItems = items.map((item)=> item.id===id ? {...item, checked:!item.checked} : item)
+      setItems(listItems)
     }
   return (
-
-    <main>
-      <p>Let's {name} Money!</p>
-      <button onClick={handleNameChange}>Subscribe</button>
-      <button onClick={decrement}>-</button>
-      <span>{count}</span>
-      <button onClick={increment}>+</button>
+<>
+<main>
+     <p>Hi Everyone</p>
+     
+     <ul>
+      {items.map((item) =>(
+        <li className="item" key={item.id}>
+        <input
+         type="checkbox"
+         onChange={() =>handleCheck(item.id)}
+          checked= {item.checked}>
+        </input>
+        <label>{item.item}</label>
+       <FaTrashAlt 
+       role ="button"
+       tabIndex="0"/>
+      </li>
+      ))}
+     </ul>
     </main>
+    </>
+    
   )
 }
 
