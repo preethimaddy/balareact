@@ -1,22 +1,27 @@
 import React from 'react'
-
+import { useState } from 'react'
 function Cont() {
+  const [name, setName] = useState('earn')
     function handleNameChange(){
         const names =["earn", "Develope", "Give","Grow"]
         const int = Math.floor(Math.random()*3)
-        return names[int]
+        setName(names[int]) 
        }
-       const handleClick1 = (e) => {
-        console.log(e.target.innerText)
-       }
-       const handleClick = (name) => {
-        console.log(`Thanks for the support ${name}`)
-       }
+    const [count, setCount] = useState(99);
+    function increment(){
+      setCount(prevCount => prevCount + 1);
+    }
+    function decrement () {
+      setCount(prevCount => prevCount - 1);
+    }
   return (
 
     <main>
-      <p onDoubleClick={() =>handleClick('preeti')}>Let's {handleNameChange()} Money!</p>
-      <button onClick={(e) =>handleClick1(e)}>Subscribe</button>
+      <p>Let's {name} Money!</p>
+      <button onClick={handleNameChange}>Subscribe</button>
+      <button onClick={decrement}>-</button>
+      <span>{count}</span>
+      <button onClick={increment}>+</button>
     </main>
   )
 }
