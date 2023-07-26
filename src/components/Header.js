@@ -1,12 +1,15 @@
 import React from 'react'
 
-function Header() {
+function Header({title}) {
   // const headerStyle ={backgroundColor:'mediumblue', color:'white', width:'50 px'}  //inline style
   return (
     <header>
-        <h1>To Do list</h1>
+        <h1>{title}</h1>
     </header>
   )
+  Header.defaultProps = {
+    title: "To DO List"
+  }
 }
 
 export default Header
