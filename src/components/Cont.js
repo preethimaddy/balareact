@@ -21,7 +21,8 @@ function Cont  ({items, handleCheck, handleDelete})  {
    <FaTrashAlt 
    role ="button"
    tabIndex="0"
-   onClick={()=>handleDelete(item.id)}/>
+   onClick={()=>handleDelete(item.id)}
+   aria-label={`Delete ${item.item}`}/>
   </li>
   ))}
  </ul>

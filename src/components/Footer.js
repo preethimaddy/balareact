@@ -4,7 +4,7 @@ function Footer({length}) {
     
   return (
     <footer>
-{length}
+{length} List {(length <= 1 ? "Item": "Items" )}
     </footer>
   )
 }
