@@ -4,12 +4,15 @@ import Cont from './components/Cont'
 import Footer from './components/Footer';
 import { useState } from 'react'
 import AddItem from './components/AddItem';
+import Search from './components/Search';
+
 
    function App () {
     const [items, setItems] = useState(JSON.parse
       (localStorage.getItem('Todo_list'))
      )
       const [newItem,setNewItem] = useState()
+      const [search, setSearch] = useState('')
       const addItem = (item) =>{
         const id = items.length ? items[items.length -1].id + 1 : 1;
         const addNewItem = {id, checked:false, item}
@@ -43,16 +46,22 @@ import AddItem from './components/AddItem';
  
  <div >
   <Header title ="Todo list"/>
-  <AddItem 
+    <AddItem 
   newItem ={newItem}
   setNewItem = {setNewItem}
   handleSubmit ={handleSubmit}
   
   />
+  <Search 
+  search ={search}
+  setSearch={setSearch}/>
+
+      
    <Cont 
-   items ={items}
+   items ={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
    handleCheck={handleCheck}
    handleDelete={handleDelete}/>
+   
    <Footer length={items.length}/>
  </div>
  </>
