@@ -6,24 +6,9 @@ import { useState } from 'react'
 import AddItem from './components/AddItem';
 
    function App () {
-    const [items, setItems] = useState(
-      [
-        {
-          id:1,
-          checked:false,
-          item:"Practice Coding"
-        },
-        {
-          id:2,
-          checked:false,
-          item:"Play Cricket"
-        },
-        {
-          id:3,
-          checked:false,
-          item:"Read AI"
-        }
-      ])
+    const [items, setItems] = useState(JSON.parse
+      (localStorage.getItem('Todo_list'))
+     )
       const [newItem,setNewItem] = useState()
       const addItem = (item) =>{
         const id = items.length ? items[items.length -1].id + 1 : 1;
@@ -35,13 +20,13 @@ import AddItem from './components/AddItem';
       const handleCheck = (id) =>{
         const listItems = items.map((item)=> item.id===id ? {...item, checked:!item.checked} : item)
         setItems(listItems)
+        localStorage.setItem('Todo_list', JSON.stringify(listItems))
       }
   
       const handleDelete = (id) =>{
-      const listItem = items.filter((item)=>item.id!==id)
-      setItems(listItem)
-      localStorage.setItem("Todo_list", JSON.stringify(listItem))
-  
+      const listItems = items.filter((item)=>item.id!==id)
+     setItems(listItems)
+     localStorage.setItem('Todo_list', JSON.stringify(listItems))
       }
       const handleSubmit=(e) => {
         e.preventDefault();
@@ -51,6 +36,7 @@ import AddItem from './components/AddItem';
         addItem(newItem)
        setNewItem('')
         console.log('submitted')
+        
       }
   return (
  <>
