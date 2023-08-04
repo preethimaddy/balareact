@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import { useState,useEffect } from 'react'
 import AddItem from './components/AddItem';
 import Search from './components/Search';
-
+import {TailSpin} from "react-loader-spinner";
 
    function App () {
 
@@ -14,21 +14,28 @@ import Search from './components/Search';
     const [items, setItems] = useState([])
       const [newItem,setNewItem] = useState()
       const [search, setSearch] = useState('')
-
+      const [fetchError, setFetchError] = useState('')
+      const [isLoading, setIsLoading] =useState(true)
       useEffect(()=>{
         const fetchItems = async() => {
           try{
             const response = await fetch(API_URL);
+            if(!response.ok) throw Error ("Data Not Found")
             console.log(response)
 
-            const listItems =await response.json();
+            const listItems = await response.json();
             console.log(response)
             setItems(listItems)
           } catch(err){
-            console.log(err.stack)
+            setFetchError(err.message)
+          }finally {
+            setIsLoading(false)
           }
         }
-        (async () => await fetchItems())()
+        setTimeout(() => {
+          (async () => await fetchItems())()
+        }, 2000);
+       
       }, [])
       
       const addItem = (item) =>{
@@ -74,11 +81,17 @@ import Search from './components/Search';
   search ={search}
   setSearch={setSearch}/>
 
-      
-   <Cont 
+      <main>
+        {isLoading &&  <TailSpin />
+        }
+        {fetchError && <p> `Error: ${fetchError}` </p>}
+     {!isLoading && <Cont 
    items ={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
    handleCheck={handleCheck}
    handleDelete={handleDelete}/>
+     }
+      </main>
+
    
    <Footer length={items.length}/>
  </div>
